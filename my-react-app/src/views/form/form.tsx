@@ -10,7 +10,7 @@ interface Concepto {
   noFactura: string;
   observaciones: string;
   valor: number;
-  soporte: string;
+  soporte: File | null;
 }
 
 interface ViaticoForm {
@@ -72,7 +72,7 @@ const Form: React.FC = () => {
     }));
   };
 
-  const handleConceptChange = (index: number, field: keyof Concepto, value: string | number) => {
+  const handleConceptChange = (index: number, field: keyof Concepto, value: string | number | File | null) => {
     const updatedConceptos = [...formData.conceptos];
     updatedConceptos[index] = { ...updatedConceptos[index], [field]: value };
     setFormData(prev => ({ ...prev, conceptos: updatedConceptos }));
@@ -90,7 +90,7 @@ const Form: React.FC = () => {
         noFactura: '',
         observaciones: '',
         valor: 0,
-        soporte: ''
+        soporte: null
       }]
     }));
   };
@@ -111,14 +111,21 @@ const Form: React.FC = () => {
 
   return (
     <div className="form-container">
-      <h1>Solicitud de Viáticos</h1>
+      <div className="form-header">
+        <h1>Solicitud de Viáticos</h1>
+        <img src="/campusWhite.png" alt="Logo" className="header-logo" />
+      </div>
       <form onSubmit={handleSubmit} className="viatico-form">
         <div className="form-section">
           <h2>Información General</h2>
           <div className="form-grid">
             <div className="form-group">
               <label htmlFor="tipoViatico">Tipo de Viático</label>
-              <input type="text" id="tipoViatico" name="tipoViatico" value={formData.tipoViatico} onChange={handleInputChange} required />
+              <select id="tipoViatico" name="tipoViatico" value={formData.tipoViatico} onChange={handleInputChange} required>
+                <option value="">Seleccionar</option>
+                <option value="Relaciones Públicas">Relaciones Públicas</option>
+                <option value="Gestión comercial">Gestión comercial</option>
+              </select>
             </div>
             <div className="form-group">
               <label htmlFor="lineaNegocio">Línea de Negocio</label>
@@ -210,8 +217,8 @@ const Form: React.FC = () => {
         <div className="form-section">
           <h2>Conceptos</h2>
           {formData.conceptos.map((concepto, index) => (
-            <div key={index} className="concepto-item">
-              <h3>Concepto {index + 1}</h3>
+            <details key={index} className="concepto-item">
+              <summary>Concepto {index + 1}</summary>
               <div className="form-grid">
                 <div className="form-group">
                   <label>ITEM</label>
@@ -246,12 +253,12 @@ const Form: React.FC = () => {
                   <input type="number" value={concepto.valor} onChange={(e) => handleConceptChange(index, 'valor', e.target.value)} required />
                 </div>
                 <div className="form-group">
-                  <label>Soporte (Link Imagen)</label>
-                  <input type="url" value={concepto.soporte} onChange={(e) => handleConceptChange(index, 'soporte', e.target.value)} />
+                  <label>Soporte (Imagen)</label>
+                  <input type="file" accept="image/*" onChange={(e) => handleConceptChange(index, 'soporte', e.target.files ? e.target.files[0] : null)} />
                 </div>
               </div>
               <button type="button" onClick={() => removeConcepto(index)} className="remove-btn">Eliminar Concepto</button>
-            </div>
+            </details>
           ))}
           <button type="button" onClick={addConcepto} className="add-btn">Agregar Concepto</button>
         </div>
