@@ -122,18 +122,55 @@ const Form: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
     try {
+      // Basic validation
+      if (!formData.tipoViatico || !formData.solicitante || !formData.fechaInicio) {
+        throw new Error('Campos requeridos faltantes: Tipo de Viático, Solicitante, Fecha Inicio');
+      }
+
+      // Transform Spanish field names to English for backend
       const dataToSend = {
-        ...formData,
-        conceptos: formData.conceptos.map(concepto => ({
-          ...concepto,
-          soporte: concepto.soporte ? concepto.soporte.name : null
+        travel_allowance_type: formData.tipoViatico,
+        business_line: formData.lineaNegocio,
+        location: formData.zonaUbicacion,
+        applicant: formData.solicitante,
+        cost_center: formData.centroCostos,
+        number_advancement_payment: formData.noAnticipo,
+        document: formData.cedulaCiudadania,
+        start_date: formData.fechaInicio,
+        end_date: formData.fechaFinal,
+        application_date: formData.fechaSolicitud,
+        city_origin: formData.ciudadOrigen,
+        city_destination: formData.ciudadDestino,
+        activity: formData.actividadRealizar,
+        official_deposit_money: Number(formData.funcionarioConsignar) || 0,
+        bank: formData.entidadBancaria,
+        account_type: formData.tipoCuenta,
+        account_number: formData.noCuenta,
+        money_delivered: Number(formData.dineroEntregado) || 0,
+        balance: Number(formData.saldo) || 0,
+        official_email: formData.correoFuncionario,
+        comments: formData.observaciones,
+        concept: formData.conceptos.map(concepto => ({
+          item: concepto.item,
+          invoice_date: concepto.fechaFactura,
+          nit: concepto.nit,
+          issuer_name: concepto.nombreEmisor,
+          concept: concepto.concepto,
+          number_invoice: concepto.noFactura,
+          comments: concepto.observaciones,
+          cost: Number(concepto.valor) || 0,
+          support: concepto.soporte ? concepto.soporte.name : null
         }))
       };
+
+      console.log('Data to send to backend:', JSON.stringify(dataToSend, null, 2));
       await submitViatico(dataToSend);
       alert('Solicitud enviada exitosamente');
-    } catch (err) {
-      setError('Error al enviar la solicitud');
+    } catch (err: any) {
+      console.error('Error submitting form:', err);
+      setError(err.message || 'Error al enviar la solicitud');
     } finally {
       setLoading(false);
     }
