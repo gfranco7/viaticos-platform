@@ -47,7 +47,7 @@ export const submitViatico = async (data: any) => {
 export const downloadReport = async (period: string) => {
   try {
     console.log('Downloading from:', API_BASE_URL + `/document`);
-    const response = await api.get(`/document`, {
+    const response = await api.post(`/document`, {
       responseType: 'blob' // Important for file downloads
     });
 
@@ -57,7 +57,7 @@ export const downloadReport = async (period: string) => {
     // Check if we actually got an Excel file or HTML error
     if (response.headers['content-type']?.includes('text/html')) {
       console.error('ERROR: Backend returned HTML instead of Excel!');
-      const textContent = await response.data.text();
+      const textContent = await response.data;
       console.log('HTML content received:', textContent);
       throw new Error('El backend retornó HTML en lugar de un archivo Excel. Revisa la implementación del endpoint.');
     }
