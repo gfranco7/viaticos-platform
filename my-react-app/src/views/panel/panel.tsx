@@ -47,7 +47,7 @@ const Panel: React.FC = () => {
         </div>
         <div className="panel-content">
           <h2>Reporte Completo</h2>
-          <p>Descargar todos los registros de la base de datos</p>
+          <p>-- ---</p>
           <button
             className="download-btn"
             disabled={loading}
