@@ -67,7 +67,7 @@ body {
 .form-header h1 {
   position: relative;
   z-index: 1;
-  font-size: 1.8rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: -0.5px;
@@ -223,6 +223,15 @@ textarea {
   resize: vertical;
 }
 
+/* Remove number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
 select {
   cursor: pointer;
   appearance: none;
@@ -230,6 +239,37 @@ select {
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 3rem;
+}
+
+/* Date input calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z' stroke='%23344767' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 2V6M8 2V6M3 10H21' stroke='%23344767' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  opacity: 1;
+}
+
+/* File label button */
+.file-label {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+.file-label:hover {
+  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(42, 82, 152, 0.3);
 }
 
 /* ===== CONCEPTO ITEMS ===== */
@@ -341,11 +381,11 @@ button:hover::before {
 
 /* Remove Button */
 .remove-btn {
-  background: linear-gradient(135deg, #e63946 0%, #c92a2a 100%);
+  background: linear-gradient(135deg, #180709 0%, #491818 100%);
   color: #ffffff;
   padding: 0.75rem 1.5rem;
   margin-top: 1.5rem;
-  box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+  box-shadow: 0 4px 15px rgba(107, 28, 35, 0.3);
 }
 
 .remove-btn:hover {
@@ -364,11 +404,11 @@ button:hover::before {
   font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+  background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #0d1b2a 100%);
   background-size: 200% 100%;
   color: #ffffff;
   margin-top: 2rem;
-  box-shadow: 0 10px 30px rgba(42, 82, 152, 0.3);
+  box-shadow: 0 10px 30px rgba(27, 38, 59, 0.3);
   text-transform: uppercase;
 }
 
@@ -660,6 +700,25 @@ select {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
+/* ===== SALDO DISPLAY ===== */
+.saldo-display {
+  background: #f8f9fa;
+  padding: 0.9rem 1.1rem;
+  border-radius: 10px;
+  border: 2px solid #e9ecef;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  text-align: center;
+  color: #2a5298;
+}
+
+.saldo-display[data-negative="true"] {
+  color: #e63946;
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
 input:hover,
 textarea:hover,
 select:hover {
@@ -749,7 +808,7 @@ button::before {
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(100, 83, 245, 0.2);
   transform: translate(-50%, -50%);
   transition: width 0.6s, height 0.6s;
 }
@@ -779,16 +838,16 @@ button:hover::before {
 
 /* Remove Button */
 .remove-btn {
-  background: linear-gradient(135deg, #e63946 0%, #c92a2a 100%);
+  background: linear-gradient(135deg, #330281 0%, #1a124b 100%);
   color: #ffffff;
   padding: 0.75rem 1.5rem;
   margin-top: 1.5rem;
-  box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+  box-shadow: 0 4px 15px rgba(33, 21, 78, 0.3);
 }
 
 .remove-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+  box-shadow: 0 8px 25px rgba(22, 8, 9, 0.4);
 }
 
 .remove-btn:active {
