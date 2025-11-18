@@ -161,7 +161,7 @@ const Form: React.FC = () => {
           number_invoice: concepto.noFactura,
           comments: concepto.observaciones,
           cost: Number(concepto.valor) || 0,
-          support: concepto.soporte ? concepto.soporte.name : null
+          image: concepto.soporte ? concepto.soporte.name : null
         }))
       };
 
@@ -324,7 +324,7 @@ const Form: React.FC = () => {
                 <div className="form-group">
                   <label>Soporte (Imagen)</label>
                   <label htmlFor={`soporte-${index}`} className="file-label" style={{background: concepto.soporte ? 'darkgreen' : undefined}}>{concepto.soporte ? "Soporte Cargado" : "Seleccionar Imagen"}</label>
-                  <input type="file" id={`soporte-${index}`} accept="image/*" onChange={(e) => handleConceptChange(index, 'soporte', e.target.files ? e.target.files[0] : null)} style={{display: 'none'}} />
+                  <input type="file" id={`soporte-${index}`} accept="image/*" onChange={(e) => handleConceptChange(index, 'soporte', (e.target as HTMLInputElement).files ? (e.target as HTMLInputElement).files![0] : null)} style={{display: 'none'}} />
                   {concepto.soporte && <p style={{color: 'blue', marginTop: '0.5rem'}}>{concepto.soporte.name}</p>}
                 </div>
               </div>
